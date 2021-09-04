@@ -3,11 +3,11 @@ from socket import *
 import sys # In order to terminate the program
 
 def webServer(port=13331):
-    host = "127.0.0.1"
+    hostIP = "127.0.0.1"
     serverSocket = socket(AF_INET, SOCK_STREAM)
 
     #Prepare a sever socket
-    serverSocket.bind((host, port))
+    serverSocket.bind((hostIP, port))
     #Fill in start
     serverSocket.listen()
     #Fill in end
@@ -17,13 +17,21 @@ def webServer(port=13331):
         print('Ready to serve...')
         connectionSocket, addr = serverSocket.accept() #Fill in start      #Fill in end
         try:
-            message = #Fill in start    #Fill in end
+            print(connectionSocket)
+            print(addr)
+            print('Connection received by', addr)
+            message = connectionSocket.recv(1024) #Fill in start    #Fill in end
+            print(message)
             filename = message.split()[1]
+            print(filename)
             f = open(filename[1:])
-            outputdata = #Fill in start     #Fill in end
+            print(f)
+            outputdata = f.read() #Fill in start     #Fill in end
+            print (outputdata)
 
             #Send one HTTP header line into socket
             #Fill in start
+            connectionSocket.send(('\nHTTP/1.1 200 OK\n\n'.encode()))
 
             #Fill in end
 
@@ -36,16 +44,16 @@ def webServer(port=13331):
         except IOError:
             #Send response message for file not found (404)
             #Fill in start
-
+            connectionSocket.send("\nHTTP/1.1 404 Not Found\n\n".encode())
             #Fill in end
 
             #Close client socket
             #Fill in start
-
+            connectionSocket.close()
             #Fill in end
 
-            serverSocket.close()
-    sys.exit()  # Terminate the program after sending the corresponding data
+        serverSocket.close()
+        sys.exit()  # Terminate the program after sending the corresponding data
 
 if __name__ == "__main__":
     webServer(13331)

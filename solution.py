@@ -1,3 +1,4 @@
+
 #import socket module
 from socket import *
 import sys # In order to terminate the program
@@ -52,11 +53,14 @@ def webServer(port=13331):
             connectionSocket.close()
             #Fill in end
         except (ConnectionResetError, BrokenPipeError):
-        pass
+            pass
 
         serverSocket.close()
         sys.exit()  # Terminate the program after sending the corresponding data
 
 if __name__ == "__main__":
+    
     webServer(13331)
+
+
 

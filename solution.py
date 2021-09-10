@@ -10,7 +10,7 @@ def webServer(port=13331):
     #Prepare a sever socket
     serverSocket.bind(("", port))
     #Fill in start
-    serverSocket.listen()
+    serverSocket.listen(3)
     #Fill in end
 
     while True:
